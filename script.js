@@ -29,12 +29,11 @@ function startTheApp() {
     var cnvsWidth = canvas.width;
     var cnvsHeight = canvas.height;
     
-    ctx.fillStyle='rgb(0,0,0)';
+    ctx.fillStyle="rgb(0,0,0)";
     ctx.fillRect(0,0, cnvsWidth, cnvsHeight);
     ctx.lineWidth = 1;
     
-    var hueBegin = rondaf(0,360);
-    var triangleSide = 20;
+    var triangleSide = 100;
     var halfTriSide = triangleSide / 2;
     var rowHeight = Math.floor(triangleSide * hScale);
     var colums = Math.ceil(cnvsWidth / triangleSide) + 1;
@@ -42,7 +41,6 @@ function startTheApp() {
     
     var col, row;
     for(row = 0; row < rows; row++){
-        var hue = hueBegin + (row * 3);
         for (col = 0; col < colums; col++){
             var x = col * triangleSide;
             var y = row * rowHeight
@@ -51,7 +49,12 @@ function startTheApp() {
                 x -= halfTriSide;
             }
             //Driehoeken met punt naar boven
-            color = "hsl(" + hue + ", 50%, " + rondaf(0, 60) + "%)";
+            // HSL = Hue Saturation Lightness
+            // H gaat van 0-360 (0 red, 120 green, 240 blue)
+            // S 0%-100% (0% is shade grijs, 100% is de volledige kleur)
+            // L 0%-100% (0% is zwart, 100% wit)
+            
+            color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5, 50) + "%)";
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
             ctx.beginPath();
@@ -72,7 +75,7 @@ function isCanvasSupported() {
 }
 
 //afronden
-function rondaf(min, max){
+function getRandom(min, max){
     return Math.floor((Math.random() * (max - min + 1)) + min);
 }
 
