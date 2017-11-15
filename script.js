@@ -26,16 +26,15 @@ function resizeCanvas(){
 function startDrawing() {
     cnvsWidth = canvas.width;
     cnvsHeight = canvas.height;
-    cnvsWMiddle = cnvsWidth / 2;
-    cnvsHMiddle = cnvsHeight / 2;
+    xCenter = cnvsWidth / 2;
+    yCenter = cnvsHeight / 2;
     
-//    ctx.fillStyle="rgb(0,0,0)";
-//    ctx.fillRect(0,0, cnvsWidth, cnvsHeight);
-//    ctx.lineWidth = 1;
-    
+    // ctx.fillStyle="rgb(0,0,0)";
+    ctx.fillRect(0,0, cnvsWidth, cnvsHeight);
+    // ctx.lineWidth = 1;
     trianglePattern();
-    kerstboom(cnvsWMiddle,cnvsHMiddle - (cnvsHeight / 5), 1);
-    kerstboom(cnvsWMiddle * 1.1 ,cnvsHMiddle - (cnvsHeight / 5) * 1.1, 0.8);
+    kerstboom(xCenter,yCenter - (cnvsHeight / 5), 1);
+    kerstboom(xCenter,yCenter - (cnvsHeight / 5), 0.8);
 
 }
 //--------------------- Maakt canas element aan en test of deze aanwezig is, returned waarde ----------------------
@@ -46,55 +45,6 @@ function isCanvasSupported() {
 //--------------------- Random getal tussen min en max afgerond naar de dichtsbijzijnde integer -------------------
 function getRandom(min, max){
     return Math.floor((Math.random() * (max - min + 1)) + min);
-}
-//--------------------- Maakt kerstboom ---------------------------------------------------------------------------
-function kerstboom(x, y, scale){
-    var color = "rgb(255,255,255)";
-    ctx.fillStyle = color;
-    ctx.strokeStyle = color;
-    ctx.scale(scale, scale);
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x - 10, y);
-    
-    ctx.lineTo(x - 10, y - 20);
-    ctx.lineTo(x - 60, y - 20);
-    
-    ctx.lineTo(x - 40, y - 60);
-    ctx.lineTo(x - 50, y - 60);
-    
-    ctx.lineTo(x - 30, y - 100);
-    ctx.lineTo(x - 40, y - 100);
-    
-    ctx.lineTo(x - 20, y - 140);
-    ctx.lineTo(x - 30, y - 140);
-    
-    ctx.lineTo(x - 10, y - 180);
-    ctx.lineTo(x - 20, y - 180);
-    
-    ctx.lineTo(x, y - 220);
-    
-    ctx.lineTo(x + 20, y - 180);
-    ctx.lineTo(x + 10, y - 180);
-    
-    ctx.lineTo(x + 30, y - 140);
-    ctx.lineTo(x + 20, y - 140);
-    
-    ctx.lineTo(x + 40, y - 100);
-    ctx.lineTo(x + 30, y - 100);
-    
-    ctx.lineTo(x + 50, y - 60);
-    ctx.lineTo(x + 40, y - 60);
-    
-    ctx.lineTo(x + 60, y - 20);
-    ctx.lineTo(x + 10, y - 20);
-    
-    ctx.lineTo(x + 10, y);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    
 }
 //--------------------- Maakt het driehoeken pattroon aan ---------------------------------------------------------
 function trianglePattern(){
@@ -142,9 +92,59 @@ function trianglePattern(){
         }
     }
 }
+//--------------------- Maakt kerstboom ---------------------------------------------------------------------------
+function kerstboom(x, y, scale){
+    var color = "rgb(255,255,255)";
+    x = x * scale;
+    y = y * scale;
+    
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    ctx.scale(scale, scale);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - 10, y);
+    
+    ctx.lineTo(x - 10, y - 20);
+    ctx.lineTo(x - 60, y - 20);
+    
+    ctx.lineTo(x - 40, y - 60);
+    ctx.lineTo(x - 50, y - 60);
+    
+    ctx.lineTo(x - 30, y - 100);
+    ctx.lineTo(x - 40, y - 100);
+    
+    ctx.lineTo(x - 20, y - 140);
+    ctx.lineTo(x - 30, y - 140);
+    
+    ctx.lineTo(x - 10, y - 180);
+    ctx.lineTo(x - 20, y - 180);
+    
+    ctx.lineTo(x, y - 220);
+    
+    ctx.lineTo(x + 20, y - 180);
+    ctx.lineTo(x + 10, y - 180);
+    
+    ctx.lineTo(x + 30, y - 140);
+    ctx.lineTo(x + 20, y - 140);
+    
+    ctx.lineTo(x + 40, y - 100);
+    ctx.lineTo(x + 30, y - 100);
+    
+    ctx.lineTo(x + 50, y - 60);
+    ctx.lineTo(x + 40, y - 60);
+    
+    ctx.lineTo(x + 60, y - 20);
+    ctx.lineTo(x + 10, y - 20);
+    
+    ctx.lineTo(x + 10, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke(); 
+}
 //-------------------- Start de draw functie wanneer er op spatie gedrukt wordt -----------------------------------
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
-        startDrawing(); 
+        startDrawing();
     }
 }
