@@ -1,7 +1,7 @@
-//------------------ Globale variabelen -----------------------------------------------------------------------
+//------------------ Globale variabelen ------------------------------------------------------------------------
 var canvas, ctx, cnvsWidth, cnvsHeight, cnvsWMiddle, cnvsHMiddle;
 window.addEventListener("load", eventWindowLoaded);
-//------------------ Wanneer de pagina geladen is start InitCanvas() -------------------------------------------
+//------------------ Wanneer de pagina geladen is start InitCanvas() --------------------------------------------
 function eventWindowLoaded() {
     initCanvas();
 }
@@ -16,7 +16,7 @@ function initCanvas() {
     ctx = canvas.getContext('2d');
     resizeCanvas();
 }
-//-------------------- Resized de canvas naar de locale browser size --------------------------------------------
+//-------------------- Resized de canvas naar de locale browser size ---------------------------------------------
 function resizeCanvas(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -34,9 +34,11 @@ function startDrawing() {
 //    ctx.lineWidth = 1;
     
     trianglePattern();
+    kerstboom(cnvsWMiddle,cnvsHMiddle - (cnvsHeight / 5), 1);
+    kerstboom(cnvsWMiddle * 1.1 ,cnvsHMiddle - (cnvsHeight / 5) * 1.1, 0.8);
 
 }
-//--------------------- Maakt canas element aan en test of deze aanwezig is, returned waarde ---------------------
+//--------------------- Maakt canas element aan en test of deze aanwezig is, returned waarde ----------------------
 function isCanvasSupported() {
     var elem = document.createElement('canvas');
     return !!(elem.getContext && elem.getContext('2d'));
@@ -44,6 +46,55 @@ function isCanvasSupported() {
 //--------------------- Random getal tussen min en max afgerond naar de dichtsbijzijnde integer -------------------
 function getRandom(min, max){
     return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+//--------------------- Maakt kerstboom ---------------------------------------------------------------------------
+function kerstboom(x, y, scale){
+    var color = "rgb(255,255,255)";
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+    ctx.scale(scale, scale);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - 10, y);
+    
+    ctx.lineTo(x - 10, y - 20);
+    ctx.lineTo(x - 60, y - 20);
+    
+    ctx.lineTo(x - 40, y - 60);
+    ctx.lineTo(x - 50, y - 60);
+    
+    ctx.lineTo(x - 30, y - 100);
+    ctx.lineTo(x - 40, y - 100);
+    
+    ctx.lineTo(x - 20, y - 140);
+    ctx.lineTo(x - 30, y - 140);
+    
+    ctx.lineTo(x - 10, y - 180);
+    ctx.lineTo(x - 20, y - 180);
+    
+    ctx.lineTo(x, y - 220);
+    
+    ctx.lineTo(x + 20, y - 180);
+    ctx.lineTo(x + 10, y - 180);
+    
+    ctx.lineTo(x + 30, y - 140);
+    ctx.lineTo(x + 20, y - 140);
+    
+    ctx.lineTo(x + 40, y - 100);
+    ctx.lineTo(x + 30, y - 100);
+    
+    ctx.lineTo(x + 50, y - 60);
+    ctx.lineTo(x + 40, y - 60);
+    
+    ctx.lineTo(x + 60, y - 20);
+    ctx.lineTo(x + 10, y - 20);
+    
+    ctx.lineTo(x + 10, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    
 }
 //--------------------- Maakt het driehoeken pattroon aan ---------------------------------------------------------
 function trianglePattern(){
@@ -67,7 +118,7 @@ function trianglePattern(){
             // S 0%-100% (0% is shade grijs, 100% is de volledige kleur)
             // L 0%-100% (0% is zwart, 100% wit)
             //Driehoeken met punt naar boven
-            color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5, 50) + "%)";
+            color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5,50) + "%)";
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
             ctx.beginPath();
@@ -78,7 +129,7 @@ function trianglePattern(){
             ctx.fill();
             ctx.stroke();
             //Driehoeken met punt naar onder
-            color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5, 50) + "%)";
+            color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5,50) + "%)";
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
             ctx.beginPath();
@@ -91,9 +142,9 @@ function trianglePattern(){
         }
     }
 }
-//-------------------- Start de draw functie wanneer er op spatie gedrukt wordt ----------------------------------
+//-------------------- Start de draw functie wanneer er op spatie gedrukt wordt -----------------------------------
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
-        startDrawing();
+        startDrawing(); 
     }
 }
