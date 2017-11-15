@@ -1,4 +1,4 @@
-var canvas, ctx;
+var canvas, ctx, cnvsWidth, cnvsHeight, cnvsWMiddle, cnvsHMiddle;
 var hScale = 0.866;
 
 window.addEventListener("load", eventWindowLoaded);
@@ -22,17 +22,33 @@ function initCanvas() {
 function resizeCanvas(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    startTheApp();
+    startDrawing();
 }
 
-function startTheApp() {
-    var cnvsWidth = canvas.width;
-    var cnvsHeight = canvas.height;
+function startDrawing() {
+    cnvsWidth = canvas.width;
+    cnvsHeight = canvas.height;
+    cnvsWMiddle = cnvsWidth / 2;
+    cnvsHMiddle = cnvsHeight / 2;
     
-    ctx.fillStyle="rgb(0,0,0)";
-    ctx.fillRect(0,0, cnvsWidth, cnvsHeight);
-    ctx.lineWidth = 1;
+//    ctx.fillStyle="rgb(0,0,0)";
+//    ctx.fillRect(0,0, cnvsWidth, cnvsHeight);
+//    ctx.lineWidth = 1;
     
+    trianglePattern();
+
+}
+
+function isCanvasSupported() {
+    var elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
+}
+
+//random getal tussen min en max afgerond naar de dichtsbijzijnde integer
+function getRandom(min, max){
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+function trianglePattern(){
     var triangleSide = 40;
     var halfTriSide = triangleSide / 2;
     var rowHeight = Math.floor(triangleSide * hScale);
@@ -78,22 +94,10 @@ function startTheApp() {
             ctx.stroke();
         }
     }
-    
 }
-
-function isCanvasSupported() {
-    var elem = document.createElement('canvas');
-    return !!(elem.getContext && elem.getContext('2d'));
-}
-
-//random getal tussen min en max afgerond naar de dichtsbijzijnde integer
-function getRandom(min, max){
-    return Math.floor((Math.random() * (max - min + 1)) + min);
-}
-
 
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
-        startTheApp();
+        startDrawing();
     }
 }
