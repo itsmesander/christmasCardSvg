@@ -1,10 +1,11 @@
+//------------------ Globale variabelen -----------------------------------------------------------------------
 var canvas, ctx, cnvsWidth, cnvsHeight, cnvsWMiddle, cnvsHMiddle;
 window.addEventListener("load", eventWindowLoaded);
-//Wanneer de pagina geladen is start InitCanvas()
+//------------------ Wanneer de pagina geladen is start InitCanvas() -------------------------------------------
 function eventWindowLoaded() {
     initCanvas();
 }
-//Instansieerd de canvas + controle + resizeCanvas()
+//------------------- Instansieerd de canvas + controle + resizeCanvas() ----------------------------------------
 function initCanvas() {
     canvas = document.getElementById("mycanvas");
     if (!canvas || !isCanvasSupported) {
@@ -15,13 +16,13 @@ function initCanvas() {
     ctx = canvas.getContext('2d');
     resizeCanvas();
 }
-//Resized de canvas naar de locale browser size
+//-------------------- Resized de canvas naar de locale browser size --------------------------------------------
 function resizeCanvas(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     startDrawing();
 }
-//Draw functie
+//-------------------- Draw functie ------------------------------------------------------------------------------
 function startDrawing() {
     cnvsWidth = canvas.width;
     cnvsHeight = canvas.height;
@@ -35,16 +36,16 @@ function startDrawing() {
     trianglePattern();
 
 }
-//Maakt canas element aan en test of deze aanwezig is, returned waarde
+//--------------------- Maakt canas element aan en test of deze aanwezig is, returned waarde ---------------------
 function isCanvasSupported() {
     var elem = document.createElement('canvas');
     return !!(elem.getContext && elem.getContext('2d'));
 }
-//random getal tussen min en max afgerond naar de dichtsbijzijnde integer
+//--------------------- Random getal tussen min en max afgerond naar de dichtsbijzijnde integer -------------------
 function getRandom(min, max){
     return Math.floor((Math.random() * (max - min + 1)) + min);
 }
-//Maakt het driehoeken pattroon aan
+//--------------------- Maakt het driehoeken pattroon aan ---------------------------------------------------------
 function trianglePattern(){
     var hScale = 0.866;
     var triangleSide = 40;
@@ -52,7 +53,6 @@ function trianglePattern(){
     var rowHeight = Math.floor(triangleSide * hScale);
     var colums = Math.ceil(cnvsWidth / triangleSide) + 1;
     var rows = Math.ceil(cnvsHeight / rowHeight);
-    
     var col, row;
     for(row = 0; row < rows; row++){
         for (col = 0; col < colums; col++){
@@ -66,7 +66,6 @@ function trianglePattern(){
             // H gaat van 0-360 (0 red, 120 green, 240 blue)
             // S 0%-100% (0% is shade grijs, 100% is de volledige kleur)
             // L 0%-100% (0% is zwart, 100% wit)
-            
             //Driehoeken met punt naar boven
             color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5, 50) + "%)";
             ctx.fillStyle = color;
@@ -78,7 +77,6 @@ function trianglePattern(){
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
-            
             //Driehoeken met punt naar onder
             color = "hsl(" + getRandom(0,20) + "," + getRandom(50,99) + "%, " + getRandom(5, 50) + "%)";
             ctx.fillStyle = color;
@@ -93,7 +91,7 @@ function trianglePattern(){
         }
     }
 }
-//Start de draw functie wanneer er op spatie gedrukt wordt
+//-------------------- Start de draw functie wanneer er op spatie gedrukt wordt ----------------------------------
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
         startDrawing();
