@@ -1,12 +1,10 @@
 var canvas, ctx, cnvsWidth, cnvsHeight, cnvsWMiddle, cnvsHMiddle;
-var hScale = 0.866;
-
 window.addEventListener("load", eventWindowLoaded);
-
+//Wanneer de pagina geladen is start InitCanvas()
 function eventWindowLoaded() {
     initCanvas();
 }
-
+//Instansieerd de canvas + controle + resizeCanvas()
 function initCanvas() {
     canvas = document.getElementById("mycanvas");
     if (!canvas || !isCanvasSupported) {
@@ -17,14 +15,13 @@ function initCanvas() {
     ctx = canvas.getContext('2d');
     resizeCanvas();
 }
-
-
+//Resized de canvas naar de locale browser size
 function resizeCanvas(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     startDrawing();
 }
-
+//Draw functie
 function startDrawing() {
     cnvsWidth = canvas.width;
     cnvsHeight = canvas.height;
@@ -38,17 +35,18 @@ function startDrawing() {
     trianglePattern();
 
 }
-
+//Maakt canas element aan en test of deze aanwezig is, returned waarde
 function isCanvasSupported() {
     var elem = document.createElement('canvas');
     return !!(elem.getContext && elem.getContext('2d'));
 }
-
 //random getal tussen min en max afgerond naar de dichtsbijzijnde integer
 function getRandom(min, max){
     return Math.floor((Math.random() * (max - min + 1)) + min);
 }
+//Maakt het driehoeken pattroon aan
 function trianglePattern(){
+    var hScale = 0.866;
     var triangleSide = 40;
     var halfTriSide = triangleSide / 2;
     var rowHeight = Math.floor(triangleSide * hScale);
@@ -95,7 +93,7 @@ function trianglePattern(){
         }
     }
 }
-
+//Start de draw functie wanneer er op spatie gedrukt wordt
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
         startDrawing();
